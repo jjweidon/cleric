@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import styles from './OnboardingHeader.module.css';
 
 type OnboardingHeaderProps = {
-  currentStep: 1 | 2 | 3 | 4;
+  currentStep: 1 | 2 | 3 | 4 | 5;
   backLink: string;
 };
 
@@ -13,7 +13,7 @@ const ANIMATION_DURATION = 1200;
 const PROGRESS_BAR_HEIGHT = '4px';
 const PROGRESS_BAR_BG_COLOR = '#D1D5DB';
 const PROGRESS_FILL_COLOR = '#3B82F6';
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 type ProgressBarProps = {
   isActive: boolean;
@@ -49,6 +49,14 @@ const OnboardingHeader = ({ currentStep, backLink }: OnboardingHeaderProps) => {
         isCompleted={animationStates[i] && currentStep !== i + 1}
       />
     ));
+
+  const steps = [
+    { number: 1, label: "아이 정보" },
+    { number: 2, label: "생일" },
+    { number: 3, label: "키/몸무게" },
+    { number: 4, label: "사진" },
+    { number: 5, label: "건강 정보" }
+  ];
 
   return (
     <header className="p-2 flex items-center sticky top-0 bg-white z-10">

@@ -36,7 +36,7 @@ const Photo = () => {
 
   return (
     <div className="flex flex-col min-h-[100vh] bg-white">
-      <OnboardingHeader currentStep={3} backLink="/onboarding/growth" />
+      <OnboardingHeader currentStep={4} backLink="/onboarding/growth" />
 
       <main className="flex-1 flex flex-col items-center px-4 py-6">
         <div className="w-full max-w-md flex flex-col items-center mb-16">
