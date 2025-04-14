@@ -53,7 +53,39 @@ next-env.d.ts
 /client/build
 /client/dist
 
-# server 디렉토리 관련 (향후 추가될 예정)
-/server/build
-/server/dist
-/server/logs
+# server 디렉토리 관련
+/server/HELP.md
+/server/.gradle
+/server/build/
+!/server/gradle/wrapper/gradle-wrapper.jar
+!/server/**/src/main/**/build/
+!/server/**/src/test/**/build/
+
+### STS ###
+/server/.apt_generated
+/server/.classpath
+/server/.factorypath
+/server/.project
+/server/.settings
+/server/.springBeans
+/server/.sts4-cache
+/server/bin/
+!/server/**/src/main/**/bin/
+!/server/**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+/server/.idea
+/server/*.iws
+/server/*.iml
+/server/*.ipr
+/server/out/
+!/server/**/src/main/**/out/
+!/server/**/src/test/**/out/
+
+### NetBeans ###
+/server/nbproject/private/
+/server/nbbuild/
+/server/dist/
+/server/nbdist/
+/server/.nb-gradle/
+/server/**/application.yaml
