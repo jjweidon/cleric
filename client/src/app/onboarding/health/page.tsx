@@ -1,103 +1,195 @@
+'use client';
+
 import Link from "next/link";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { FC } from "react";
+import OnboardingHeader from "@/components/OnboardingHeader";
 
-const HealthInfo: FC = () => {
+const Health = () => {
+  const [allergies, setAllergies] = useState<string[]>([]);
+  const [dislikedFood, setDislikedFood] = useState<string>("");
+  const [likedFood, setLikedFood] = useState<string>("");
+  const [healthIssues, setHealthIssues] = useState<string>("");
+  const [specialNotes, setSpecialNotes] = useState<string>("");
+  const [termsAgreed, setTermsAgreed] = useState<boolean>(false);
+  const [healthReportSrc, setHealthReportSrc] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  const allergyOptions = ["우유", "계란", "땅콩", "견과류", "밀가루", "대두", "닭고기", "소고기", "해산물"];
+
+  const toggleAllergy = (allergy: string) => {
+    if (allergies.includes(allergy)) {
+      setAllergies(allergies.filter(item => item !== allergy));
+    } else {
+      setAllergies([...allergies, allergy]);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setHealthReportSrc(event.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleNextPage = () => {
+    router.push('/dashboard');
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <header className="p-4 flex items-center">
-        <Link href="/onboarding/photo" className="text-gray-600">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-            <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
-          </svg>
-        </Link>
-        <div className="absolute right-4 text-gray-800 font-medium">건너뛰기</div>
-      </header>
+    <div className="flex flex-col min-h-[100vh] bg-white">
+      <OnboardingHeader currentStep={4} backLink="/onboarding/photo" />
 
-      <main className="flex-1 p-4 overflow-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-3">하울이 건강 정보를 입력해주세요!</h1>
-          <p className="text-yellow-500 text-sm mb-6">더 정확한 맞춤형 답변이 가능합니다 :)</p>
-          
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">하울이는 알러지가 있나요?</label>
-            <div className="bg-gray-100 rounded-lg p-3">
+      <main className="flex-1 flex flex-col items-center px-4 py-6 pb-16">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-6">
+            <h1 className="text-xl font-bold mb-2">하울이의 건강 상태를 알려주세요</h1>
+            <h3 className="text-sm text-gray-500">더 정확한 맞춤형 답변이 가능합니다</h3>
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-base font-semibold mb-3">하울이는 알러지가 있나요?</h2>
+              <div className="flex flex-wrap gap-2">
+                {allergyOptions.map(allergy => (
+                  <button 
+                    key={allergy}
+                    className={`px-3 py-2 rounded-full border text-xs ${
+                      allergies.includes(allergy) 
+                        ? 'bg-blue-50 border-blue-500 text-blue-500' 
+                        : 'bg-gray-50 text-gray-700 border-gray-200'
+                    }`}
+                    onClick={() => toggleAllergy(allergy)}
+                  >
+                    {allergy}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold mb-3">하울이가 싫어하는 식재료가 있나요?</h2>
+              <div className="relative border border-gray-300 rounded-lg p-3">
+                <textarea 
+                  placeholder="예: 사과, 당근, 브로콜리"
+                  className="w-full bg-transparent outline-none text-sm resize-none h-20"
+                  value={dislikedFood}
+                  onChange={(e) => setDislikedFood(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold mb-3">하울이가 좋아하는 식재료가 있나요?</h2>
+              <div className="relative border border-gray-300 rounded-lg p-3">
+                <textarea 
+                  placeholder="예: 고구마, 바나나, 닭가슴살"
+                  className="w-full bg-transparent outline-none text-sm resize-none h-20"
+                  value={likedFood}
+                  onChange={(e) => setLikedFood(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold mb-3">관리해야 할 질환이 있나요?</h2>
+              <div className="relative border border-gray-300 rounded-lg p-3">
+                <textarea 
+                  placeholder="예: 비만, 관절염, 피부염"
+                  className="w-full bg-transparent outline-none text-sm resize-none h-20"
+                  value={healthIssues}
+                  onChange={(e) => setHealthIssues(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold mb-3">참고해야 할 특이사항 말씀해주세요!</h2>
+              <div className="relative border border-gray-300 rounded-lg p-3">
+                <textarea 
+                  placeholder="예: 물을 많이 마셔요, 활동량이 적어요"
+                  className="w-full bg-transparent outline-none text-sm resize-none h-20"
+                  value={specialNotes}
+                  onChange={(e) => setSpecialNotes(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold mb-3">건강검진 결과지를 올려주세요! (선택)</h2>
+              <div 
+                className="w-full h-32 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center bg-gray-50 cursor-pointer"
+                onClick={triggerFileInput}
+              >
+                {healthReportSrc ? (
+                  <div className="w-full h-full flex items-center justify-center p-2">
+                    <div className="bg-blue-50 text-blue-500 px-3 py-1 rounded-full text-xs">
+                      파일이 업로드되었습니다
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-gray-400 text-center p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mx-auto mb-1">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                    </svg>
+                    <span className="text-xs">클릭하여 파일 업로드</span>
+                  </div>
+                )}
+              </div>
               <input 
-                type="text" 
-                placeholder="ex. 계란, 갑각류" 
-                className="w-full bg-transparent outline-none" 
+                type="file" 
+                ref={fileInputRef}
+                className="hidden" 
+                accept="image/*,application/pdf"
+                onChange={handleFileChange}
               />
             </div>
-          </div>
-          
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">하울이가 싫어하는 식재료가 있나요?</label>
-            <div className="bg-gray-100 rounded-lg p-3">
+
+            <div className="flex items-start mt-4">
               <input 
-                type="text" 
-                placeholder="ex. 당근, 피망" 
-                className="w-full bg-transparent outline-none" 
+                type="checkbox" 
+                id="terms" 
+                className="mt-1 mr-2"
+                checked={termsAgreed}
+                onChange={(e) => setTermsAgreed(e.target.checked)}
               />
+              <label htmlFor="terms" className="text-xs text-gray-600">
+                이용약관을 읽고 이해하였으며, 이에 동의합니다.
+              </label>
             </div>
-          </div>
-          
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">하울이가 좋아하는 식재료가 있나요?</label>
-            <div className="bg-gray-100 rounded-lg p-3">
-              <input 
-                type="text" 
-                placeholder="ex. 고구마, 소고기" 
-                className="w-full bg-transparent outline-none" 
-              />
+            
+            <div className="mt-8">
+              <button 
+                className={`w-full py-3 rounded-lg font-medium text-base shadow-md ${
+                  termsAgreed ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'
+                }`}
+                onClick={handleNextPage}
+                disabled={!termsAgreed}
+              >
+                제출하기
+              </button>
+              <p className="text-[10px] text-gray-400 text-center mt-2">
+                입력한 정보는 오직 서비스 제공에만 활용합니다!
+              </p>
             </div>
-          </div>
-          
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">관리 해야 할 질환이 있나요?</label>
-            <div className="bg-gray-100 rounded-lg p-3">
-              <input 
-                type="text" 
-                placeholder="ex. 천식, 알레르기 비염, 아토피 등" 
-                className="w-full bg-transparent outline-none" 
-              />
-            </div>
-          </div>
-          
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">참고 해야 할 특이사항 말씀해주세요!</label>
-            <div className="bg-gray-100 rounded-lg p-3">
-              <input 
-                type="text" 
-                placeholder="ex. 실내를 자주 해요, 밖에 자주 꺼요" 
-                className="w-full bg-transparent outline-none" 
-              />
-            </div>
-          </div>
-          
-          <div className="bg-gray-100 rounded-lg p-4 flex items-center gap-2 mb-8">
-            <div className="w-5 h-5 border border-blue-500 rounded-full flex-shrink-0 flex items-center justify-center">
-              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-            </div>
-            <p className="text-sm">이용약관을 읽고 이해했으며, 동의합니다.</p>
-          </div>
-          
-          <div className="bg-gray-100 rounded-lg p-6 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-gray-500 mr-2">
-              <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625Z" />
-              <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
-            </svg>
-            <span className="text-gray-500">건강검진 결과지를 올려주세요! (선택)</span>
           </div>
         </div>
       </main>
 
-      <footer className="p-4">
-        <Link href="/dashboard">
-          <button className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium">
-            제출하기
-          </button>
-        </Link>
-        <p className="text-xs text-gray-400 text-center mt-1">
+      <footer className="py-3 w-full border-t border-gray-100 bg-white">
+        <p className="text-[10px] text-gray-400 text-center">
           © insightnexus
         </p>
       </footer>
@@ -105,4 +197,4 @@ const HealthInfo: FC = () => {
   );
 };
 
-export default HealthInfo; 
+export default Health;

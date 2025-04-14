@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const [animateLogin, setAnimateLogin] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,6 +18,12 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleLoginClick = () => {
+    // 실제 로그인 API가 구현되면 여기서 호출
+    // 현재는 바로 온보딩 페이지로 이동
+    router.push('/onboarding');
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full">
@@ -50,15 +58,24 @@ export default function Home() {
           
           {/* 로그인 버튼 */}
           <div className="w-full max-w-md space-y-2 md:space-y-3 mt-1 md:mt-2 mb-2 md:mb-4 mx-auto">
-            <button className="btn btn-kakao h-10 md:h-12">
+            <button 
+              className="btn btn-kakao h-10 md:h-12"
+              onClick={handleLoginClick}
+            >
               <Image src="/icons/kakao.svg" width={20} height={20} alt="카카오 아이콘" className="mr-2 fill-current" />
               <span>카카오톡으로 시작하기</span>
             </button>
-            <button className="btn btn-google h-10 md:h-12">
+            <button 
+              className="btn btn-google h-10 md:h-12"
+              onClick={handleLoginClick}
+            >
               <Image src="/icons/google.svg" width={20} height={20} alt="구글 아이콘" className="mr-2" />
               <span>구글 계정으로 시작하기</span>
             </button>
-            <button className="btn btn-naver h-10 md:h-12">
+            <button 
+              className="btn btn-naver h-10 md:h-12"
+              onClick={handleLoginClick}
+            >
               <Image src="/icons/naver.svg" width={20} height={20} alt="네이버 아이콘" className="mr-2" />
               <span>네이버 계정으로 시작하기</span>
             </button>

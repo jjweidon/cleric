@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full overflow-x-hidden`}>
-        <main className="min-h-screen w-full">{children}</main>
+          <main className="min-h-screen w-full">{children}</main>
       </body>
     </html>
   )
