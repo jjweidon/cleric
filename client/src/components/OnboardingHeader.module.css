@@ -1,0 +1,35 @@
+@keyframes fillProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.progressBar {
+  height: 4px;
+  flex: 1;
+  background-color: #D1D5DB;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #3B82F6;
+  width: 0;
+  will-change: width;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.progressFill.completed {
+  width: 100%;
+  transition: width 0.3s ease;
+}
+
+.progressFill.active {
+  animation: fillProgress 1200ms cubic-bezier(0.42, 0, 0.58, 1) forwards;
+  animation-fill-mode: forwards;
+} 

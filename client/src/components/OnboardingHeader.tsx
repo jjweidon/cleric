@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import styles from './OnboardingHeader.module.css';
 
 type OnboardingHeaderProps = {
   currentStep: 1 | 2 | 3 | 4;
@@ -14,44 +15,14 @@ const PROGRESS_BAR_BG_COLOR = '#D1D5DB';
 const PROGRESS_FILL_COLOR = '#3B82F6';
 const TOTAL_STEPS = 4;
 
-const styles = {
-  keyframes: `
-    @keyframes fillProgress {
-      from { width: 0%; }
-      to { width: 100%; }
-    }
-  `,
-  progressBar: `
-    height: ${PROGRESS_BAR_HEIGHT};
-    flex: 1;
-    background-color: ${PROGRESS_BAR_BG_COLOR};
-    overflow: hidden;
-    position: relative;
-  `,
-  progressFill: `
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: ${PROGRESS_FILL_COLOR};
-    width: 0;
-  `,
-  progressFillCompleted: `
-    width: 100%;
-  `,
-  progressFillActive: `
-    animation: fillProgress ${ANIMATION_DURATION}ms cubic-bezier(0.42, 0, 0.58, 1) forwards;
-  `
-};
-
 type ProgressBarProps = {
   isActive: boolean;
   isCompleted: boolean;
 };
 
 const ProgressBar = ({ isActive, isCompleted }: ProgressBarProps) => (
-  <div className="progress-bar">
-    <div className={`progress-fill ${isActive ? 'active' : isCompleted ? 'completed' : ''}`}></div>
+  <div className={styles.progressBar}>
+    <div className={`${styles.progressFill} ${isActive ? styles.active : isCompleted ? styles.completed : ''}`}></div>
   </div>
 );
 
@@ -87,13 +58,6 @@ const OnboardingHeader = ({ currentStep, backLink }: OnboardingHeaderProps) => {
         </svg>
       </Link>
       <div className="flex flex-grow justify-center mx-2">
-        <style jsx>{`
-          ${styles.keyframes}
-          .progress-bar { ${styles.progressBar} }
-          .progress-fill { ${styles.progressFill} }
-          .progress-fill.completed { ${styles.progressFillCompleted} }
-          .progress-fill.active { ${styles.progressFillActive} }
-        `}</style>
         <div className="flex w-full max-w-xs gap-1">
           {renderProgressBars()}
         </div>
