@@ -32,7 +32,15 @@ export default function Home() {
         // Intro 페이지
         <div className="flex flex-col items-center justify-center min-h-screen w-full fixed inset-0 bg-primary text-white animate-fade-out">
           <div className="text-center">
-            <h1 className="text-6xl font-bold tracking-tight mb-2">Cleric</h1>
+            <div className="relative w-[200px] h-[60px] mx-auto mb-2">
+              <Image
+                src="/logos/logo_txt_white.webp"
+                alt="Cleric"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
             <p className="text-xl font-light opacity-90">아이 건강 데이터 기반 AI 육아 비서, 클레릭</p>
           </div>
           <footer className="absolute bottom-6">
@@ -49,7 +57,15 @@ export default function Home() {
           <main className="flex-1 flex flex-col items-center justify-between h-full">
             {/* 앱 로고 */}
             <div className="w-full mt-2 md:mt-4">
-              <h1 className="text-2xl md:text-3xl font-bold text-center text-primary mb-0 md:mb-1">Cleric</h1>
+              <div className="relative w-[120px] h-[36px] mx-auto mb-0 md:mb-1">
+                <Image
+                  src="/logos/logo_txt.webp"
+                  alt="Cleric"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
               <p className="text-xs md:text-sm text-gray-500 text-center mb-2 md:mb-4">아이 건강 데이터 기반 AI 육아 비서</p>
             </div>
             
