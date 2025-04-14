@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -85,9 +86,7 @@ export default function Home() {
             </p>
           </div>
           
-          <footer className="w-full text-center text-[10px] md:text-xs text-gray-400 mb-1 md:mb-2">
-            <p>© insightnexus</p>
-          </footer>
+          <Footer />
         </div>
       )}
     </div>

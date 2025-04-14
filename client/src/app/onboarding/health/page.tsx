@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import OnboardingHeader from "@/components/OnboardingHeader";
+import Footer from "@/components/Footer";
 
 const Health = () => {
   const [allergies, setAllergies] = useState<string[]>([]);
@@ -55,13 +56,13 @@ const Health = () => {
       <main className="flex-1 flex flex-col items-center px-4 py-6 pb-16">
         <div className="w-full max-w-md">
           <div className="text-center mb-6">
-            <h1 className="text-xl font-bold mb-2">하울이의 건강 상태를 알려주세요</h1>
+            <h1 className="text-xl font-bold mb-2">하율이의 건강 상태를 알려주세요</h1>
             <h3 className="text-sm text-gray-500">더 정확한 맞춤형 답변이 가능합니다</h3>
           </div>
 
           <div className="space-y-6">
             <div>
-              <h2 className="text-base font-semibold mb-3">하울이는 알러지가 있나요?</h2>
+              <h2 className="text-base font-semibold mb-3">하율이는 알러지가 있나요?</h2>
               <div className="flex flex-wrap gap-2">
                 {allergyOptions.map(allergy => (
                   <button 
@@ -80,7 +81,7 @@ const Health = () => {
             </div>
 
             <div>
-              <h2 className="text-base font-semibold mb-3">하울이가 싫어하는 식재료가 있나요?</h2>
+              <h2 className="text-base font-semibold mb-3">하율이가 싫어하는 식재료가 있나요?</h2>
               <div className="relative border border-gray-300 rounded-lg p-3">
                 <textarea 
                   placeholder="예: 사과, 당근, 브로콜리"
@@ -92,7 +93,7 @@ const Health = () => {
             </div>
 
             <div>
-              <h2 className="text-base font-semibold mb-3">하울이가 좋아하는 식재료가 있나요?</h2>
+              <h2 className="text-base font-semibold mb-3">하율이가 좋아하는 식재료가 있나요?</h2>
               <div className="relative border border-gray-300 rounded-lg p-3">
                 <textarea 
                   placeholder="예: 고구마, 바나나, 닭가슴살"
@@ -188,11 +189,7 @@ const Health = () => {
         </div>
       </main>
 
-      <footer className="py-3 w-full border-t border-gray-100 bg-white">
-        <p className="text-[10px] text-gray-400 text-center">
-          © insightnexus
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 };

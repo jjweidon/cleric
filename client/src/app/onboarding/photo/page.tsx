@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import OnboardingHeader from "@/components/OnboardingHeader";
+import Footer from "@/components/Footer";
 
 const Photo = () => {
   const [imageSrc, setImageSrc] = useState("");
@@ -40,7 +41,7 @@ const Photo = () => {
       <main className="flex-1 flex flex-col items-center px-4 py-6">
         <div className="w-full max-w-md flex flex-col items-center mb-16">
           <div className="text-center w-full mb-10">
-            <h1 className="text-lg font-bold mb-6">하울이의 사진을 등록해주세요</h1>
+            <h1 className="text-lg font-bold mb-6">하율이의 사진을 등록해주세요</h1>
             
             <div>
               <div 
@@ -86,11 +87,7 @@ const Photo = () => {
         </div>
       </main>
 
-      <footer className="py-3 w-full border-t border-gray-100 mt-4 bg-white">
-        <p className="text-[10px] text-gray-400 text-center">
-          © insightnexus
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 };

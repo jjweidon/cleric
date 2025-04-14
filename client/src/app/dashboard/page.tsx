@@ -18,7 +18,7 @@ const Dashboard = () => {
       <main className="flex-1 p-4">
         <div className="bg-blue-50 rounded-lg p-6 mb-6">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="text-lg font-medium">하울이님 환영합니다!</h2>
+            <h2 className="text-lg font-medium">하율이님 환영합니다!</h2>
             <div className="text-sm text-blue-500">24개월</div>
           </div>
           <p className="text-sm text-gray-600">건강한 하루를 시작해 보세요.</p>
