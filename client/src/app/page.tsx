@@ -32,7 +32,7 @@ export default function Home() {
         // Intro 페이지
         <div className="flex flex-col items-center justify-center min-h-screen w-full fixed inset-0 bg-primary text-white animate-fade-out">
           <div className="text-center">
-            <div className="relative w-[200px] h-[60px] mx-auto mb-2">
+            <div className="relative w-[120px] h-[36px] sm:w-[200px] sm:h-[60px] mx-auto mb-2">
               <Image
                 src="/logos/logo_txt_white.webp"
                 alt="Cleric"
@@ -41,7 +41,7 @@ export default function Home() {
                 priority
               />
             </div>
-            <p className="text-xl font-light opacity-90">아이 건강 데이터 기반 AI 육아 비서, 클레릭</p>
+            <p className="text-xs sm:text-xl font-light opacity-90">아이 건강 데이터 기반 AI 육아 비서, 클레릭</p>
           </div>
           <footer className="absolute bottom-6">
             <p className="text-white/70 text-sm">© insightnexus</p>
@@ -75,27 +75,27 @@ export default function Home() {
             </div>
             
             {/* 로그인 버튼 */}
-            <div className="w-full max-w-md space-y-2 md:space-y-3 mt-1 md:mt-2 mb-2 md:mb-4 mx-auto">
+            <div className="w-full max-w-md flex flex-col items-center space-y-2 md:space-y-3 mt-1 md:mt-2 mb-2 md:mb-4">
               <button 
-                className="btn btn-kakao h-10 md:h-12"
+                className="btn btn-kakao"
                 onClick={handleLoginClick}
               >
                 <Image src="/icons/kakao.svg" width={20} height={20} alt="카카오 아이콘" className="mr-2 fill-current" />
-                <span>카카오톡으로 시작하기</span>
+                <span>카카오로 시작하기</span>
               </button>
               <button 
-                className="btn btn-google h-10 md:h-12"
+                className="btn btn-google"
                 onClick={handleLoginClick}
               >
                 <Image src="/icons/google.svg" width={20} height={20} alt="구글 아이콘" className="mr-2" />
-                <span>구글 계정으로 시작하기</span>
+                <span>구글로 시작하기</span>
               </button>
               <button 
-                className="btn btn-naver h-10 md:h-12"
+                className="btn btn-naver"
                 onClick={handleLoginClick}
               >
                 <Image src="/icons/naver.svg" width={20} height={20} alt="네이버 아이콘" className="mr-2" />
-                <span>네이버 계정으로 시작하기</span>
+                <span>네이버로 시작하기</span>
               </button>
               
               <p className="text-[10px] md:text-xs text-gray-400 text-center mt-2">

@@ -35,13 +35,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 70%;
+  height: 2rem;
   padding: 0.75rem 1rem;
-  border-radius: 9999px;
+  border-radius: 10px;
   font-weight: 500;
+  font-size: 0.8rem;
   transition-property: all;
   transition-duration: 200ms;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .btn {
+    height: 3rem;
+  }
 }
 
 .btn-primary {
