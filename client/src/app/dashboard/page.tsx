@@ -29,11 +29,11 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="bg-amber-50 p-4 rounded-lg">
             <div className="text-amber-500 font-medium mb-1">키</div>
-            <div className="text-lg">95cm</div>
+            <div className="text-lg">110cm</div>
           </div>
           <div className="bg-green-50 p-4 rounded-lg">
             <div className="text-green-500 font-medium mb-1">몸무게</div>
-            <div className="text-lg">12.5kg</div>
+            <div className="text-lg">20kg</div>
           </div>
         </div>
 

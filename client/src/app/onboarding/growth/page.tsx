@@ -7,13 +7,17 @@ import OnboardingHeader from "@/components/OnboardingHeader";
 import Footer from "@/components/Footer";
 
 const Growth = () => {
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState<number | null>(null);
+  const [weight, setWeight] = useState<number | null>(null);
+  const [showHeightPlaceholder, setShowHeightPlaceholder] = useState(true);
+  const [showWeightPlaceholder, setShowWeightPlaceholder] = useState(true);
   const router = useRouter();
 
   const handleNextPage = () => {
     // 실제로는 여기서 데이터 유효성 검사 후 저장
-    router.push('/onboarding/photo');
+    if (height && weight) {
+      router.push('/onboarding/photo');
+    }
   };
 
   return (
@@ -29,11 +33,25 @@ const Growth = () => {
               <label className="block text-left text-gray-700 mb-2 text-sm">키 (cm)</label>
               <div className="relative border-b-2 border-gray-300 py-2">
                 <input 
-                  type="number" 
-                  placeholder="키를 입력해주세요" 
-                  className="w-full bg-transparent outline-none text-sm"
-                  value={height}
-                  onChange={(e) => setHeight(e.target.value)}
+                  type="text" 
+                  placeholder={showHeightPlaceholder ? "ex) 110" : ""} 
+                  className="w-full bg-transparent outline-none text-center text-base"
+                  value={height || ''}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === '') {
+                      setHeight(null);
+                      setShowHeightPlaceholder(true);
+                    } else {
+                      const num = Number(value);
+                      if (!isNaN(num)) {
+                        setHeight(num);
+                        setShowHeightPlaceholder(false);
+                      }
+                    }
+                  }}
+                  onFocus={() => setShowHeightPlaceholder(false)}
+                  onBlur={() => setShowHeightPlaceholder(!height)}
                 />
               </div>
             </div>
@@ -42,11 +60,25 @@ const Growth = () => {
               <label className="block text-left text-gray-700 mb-2 text-sm">몸무게 (kg)</label>
               <div className="relative border-b-2 border-gray-300 py-2">
                 <input 
-                  type="number" 
-                  placeholder="몸무게를 입력해주세요" 
-                  className="w-full bg-transparent outline-none text-sm"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
+                  type="text" 
+                  placeholder={showWeightPlaceholder ? "ex) 20" : ""} 
+                  className="w-full bg-transparent outline-none text-center text-base"
+                  value={weight || ''}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === '') {
+                      setWeight(null);
+                      setShowWeightPlaceholder(true);
+                    } else {
+                      const num = Number(value);
+                      if (!isNaN(num)) {
+                        setWeight(num);
+                        setShowWeightPlaceholder(false);
+                      }
+                    }
+                  }}
+                  onFocus={() => setShowWeightPlaceholder(false)}
+                  onBlur={() => setShowWeightPlaceholder(!weight)}
                 />
               </div>
             </div>
@@ -55,8 +87,11 @@ const Growth = () => {
         
         <div className="w-full max-w-md mt-4">
           <button 
-            className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium text-base shadow-md"
+            className={`w-full py-3 rounded-lg font-medium text-base shadow-md ${
+              height && weight ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'
+            }`}
             onClick={handleNextPage}
+            disabled={!height || !weight}
           >
             다음 페이지
           </button>
